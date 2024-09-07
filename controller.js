@@ -47,3 +47,35 @@ exports.tambahmahasiswa = function(req, res) {
             }
         });
 };
+
+// mengubah data mahasiswa berdasarkan id
+exports.ubahmahasiswa = function(req, res) {
+    let id = req.body.id_mhs;
+    let nama = req.body.nama;
+    let prodi = req.body.prodi;
+    let fakultas = req.body.fakultas;
+
+    connection.query('UPDATE mhs SET nama=?, prodi=?, fakultas=? WHERE id_mhs=?', [nama, prodi, fakultas, id],
+        function(error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil mengubah data!", res);
+            }
+        });
+};
+
+// menghapus data mahasiswa berdasarkan id
+exports.hapusmahasiswa = function(req, res) {
+    let id = req.body.id_mhs;
+
+    connection.query('DELETE FROM mhs WHERE id_mhs=?', [id],
+        function(error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil menghapus data!", res);
+            }
+        }
+    );
+};
