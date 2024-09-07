@@ -11,9 +11,22 @@ exports.index = function(req, res) {
 exports.tampilsemuamahasiswa = function(req, res) {
     connection.query('SELECT * FROM mhs', function(error, rows, fields) {
         if (error) {
-            connection.log(error);
+            console.log(error);
         } else {
             response.ok(rows, res);
         }
     });
+};
+
+// menampilkan data mahasiswa berdasarkan id
+exports.tampilberdasarkanid = function(req, res) {
+    let id = req.params.id;
+    connection.query('SELECT * FROM mhs WHERE id_mhs = ?', [id],
+        function(error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok(rows, res);
+            }
+        });
 };
